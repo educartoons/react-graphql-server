@@ -8,10 +8,23 @@ type Mutation {
     image: String
     largeimage: String
   ): Item!
-  updateItem(id: ID!, title: String!, description: String!, price: Int!): Item!
+  updateItem(id: ID!, title: String, description: String, price: Int): Item!
+  deleteItem(id: ID!): Item
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
 }
 
 type Query {
   item(where: ItemWhereUniqueInput!): Item
-  items: [Item]!
+  items(
+    where: ItemWhereInput
+    orderBy: ItemOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Item]!
+  itemsConnection(where: ItemWhereInput): ItemConnection!
+  me: User!
 }
